@@ -38,9 +38,9 @@ jobs:
         run: ./gokazetenn
         env:
           SMTP_API_KEY: ${{secrets.SMTP_API_KEY}}
-          SMTP_HOST: ${{env.SMTP_HOST}}
-          SMTP_USERNAME: ${{env.SMTP_USERNAME}}
-          SMTP_PORT: ${{env.SMTP_PORT}}
-          SMTP_SENDER: ${{env.SMTP_SENDER}}
+          SMTP_HOST: ${{vars.SMTP_HOST}}
+          SMTP_USERNAME: ${{vars.SMTP_USERNAME}}
+          SMTP_PORT: ${{vars.SMTP_PORT}}
+          SMTP_SENDER: ${{vars.SMTP_SENDER}}
           SMTP_RECEIVER: ${{secrets.SMTP_RECEIVER}}
-          HEADER_LOGO: ${{env.HEADER_LOGO}}
+          HEADER_LOGO: ${{vars.HEADER_LOGO}}
