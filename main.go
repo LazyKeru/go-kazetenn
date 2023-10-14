@@ -1,0 +1,7 @@
+package gokazetenn
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, world!")
+}
