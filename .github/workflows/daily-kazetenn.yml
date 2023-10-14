@@ -32,6 +32,8 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: gokazetenn
+      - name: Change permission
+        run: chmod +x ./gokazetenn
       - name: Execute gokazetenn
         run: ./gokazetenn
         env:
