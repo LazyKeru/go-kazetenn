@@ -22,11 +22,22 @@ type ZenQuote struct {
 
 func GetQuoteArticle() string {
 	quote := getZenQuote()
-	html := "<blockquote>&ldquo;" +
-		quote.sentence +
-		"&rdquo; &mdash; <footer>" +
-		quote.author +
-		"</footer></blockquote>"
+	html :=
+		"<div style='display: flex; flex-direction: row; justify-content:center; align-items: stretch;'>" +
+			"<div style='display: flex; align-items: flex-start; flex-direction: row;'>" +
+			"<h1>&ldquo;</h1>" +
+			"</div>" +
+			"<div style='display: flex; align-items: center; padding: 2em 1em 2em 1em;'>" +
+			"<h3>" + quote.sentence + "</h3>" +
+			"</div>" +
+			"<div style='display: flex; align-items: flex-end; flex-direction: row;'>" +
+			"<h1>&rdquo;</h1>" +
+			"</div>" +
+			"</div>" +
+			"<div style='display: flex; justify-content: center; flex-direction: row; margin: 0em;'>" +
+			"<h4>&mdash; " + quote.author + "</h4>" +
+			"</div>" +
+			"</div>"
 	return html
 }
 
