@@ -23,7 +23,6 @@ func main() {
 	header := headerHTMLBuilder(os.Getenv("HEADER_LOGO"))
 	articles := []string{
 		quote.GetQuoteArticle(),
-		"<div>test2</div>",
 	}
 	smtp.SendNewsLetter(header, articles)
 }
