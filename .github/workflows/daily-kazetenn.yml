@@ -1,0 +1,44 @@
+name: daily-kazetenn
+run-name: The daily kazetenn for ${{ github.actor }}
+on:
+  workflow_dispatch:
+  
+  schedule:
+    - cron: '30 6 * * *'
+jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.20'
+      - name: Install dependencies
+        run: go get .
+      - name: Build executable
+        run: go build -o gokazetenn
+      - name: Upload gokazetenn executable
+        uses: actions/upload-artifact@v3
+        with:
+          name: gokazetenn
+          path: gokazetenn
+    execute:
+      runs-on: ubuntu-latest
+      needs: build
+      steps:
+      - name: Download gokazetenn executable
+        uses: actions/download-artifact@v3
+        with:
+          name: gokazetenn
+      - name: Execute gokazetenn
+        run: ./gokazetenn
+        env:
+        - SMTP_API_KEY: ${{secrets.SMTP_API_KEY}}
+        - SMTP_HOST: ${{env.SMTP_HOST}}
+        - SMTP_USERNAME: ${{env.SMTP_USERNAME}}
+        - SMTP_PORT: ${{env.SMTP_PORT}}
+        - SMTP_SENDER: ${{env.SMTP_SENDER}}
+        - SMTP_RECEIVER: ${{secrets.SMTP_RECEIVER}}
+        - HEADER_LOGO: ${{env.HEADER_LOGO}}
