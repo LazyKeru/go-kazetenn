@@ -1,4 +1,13 @@
 package weatherapi
+
+import (
+	"encoding/json"
+	"os"
+	"io"
+	"log"
+	"net/http"
+)
+
 // GO code for the weahterapi.com
 // Documentation https://www.weatherapi.com/docs/
 // Forecast API
@@ -154,4 +163,20 @@ type Alert struct {
 	Expires string `json:"expires"`
 	Desc string `json:"desc"`
 	Instruction string `json:"instruction"`
+}
+
+func GetWeather() {
+	response, err := http.Get("http://api.weatherapi.com/v1/forecast.json??key="+
+	os.Getenv("SMTP_SENDER")+
+	"&q="+ "London" +
+	"&days="+ "1"+
+	"&aqi="+ "no"+
+	"&alerts=" + "yes")
+	if err != nil {
+		log.Fatal(err)
+	}
+	responseData, err := io.ReadAll(response.Body)
+	response.Body.Close()
+	var responseObject []ResponseForecast
+	json.Unmarshal(responseData, &responseObject)
 }
