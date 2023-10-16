@@ -36,7 +36,7 @@ type Condition struct {
 }
 
 type Current struct {
-	LastUpdatedEpoch float64 `json: "last_updated_epoch"`
+	LastUpdatedEpoch float32 `json: "last_updated_epoch"`
 	LastUpdated string `json: "last_updated"`
 	TempC float64 `json: "temp_c"`
 	TempF float64 `json: "temp_f"`
@@ -80,7 +80,7 @@ type Forcastday struct {
 	Date      string `json: "date"`
 	Dateepoch int `json: "date_epoch"`
 	Day       Day `json: "day"`
-	Astro Astro `json: "astro`
+	Astro Astro `json: "astro"`
 	Hours []Hour `json: "hour"`
 }
 
@@ -166,17 +166,20 @@ type Alert struct {
 }
 
 func GetWeather() {
-	response, err := http.Get("http://api.weatherapi.com/v1/forecast.json??key="+
-	os.Getenv("SMTP_SENDER")+
-	"&q="+ "London" +
-	"&days="+ "1"+
-	"&aqi="+ "no"+
-	"&alerts=" + "yes")
+	response, err := http.Get("http://api.weatherapi.com/v1/forecast.json?key="+
+		os.Getenv("WEATHER_API_KEY") +
+		"&q=London" +
+		"&days=1" +
+		"&aqi=no" +
+		"&alerts=no")
 	if err != nil {
 		log.Fatal(err)
 	}
 	responseData, err := io.ReadAll(response.Body)
 	response.Body.Close()
-	var responseObject []ResponseForecast
+	var responseObject ResponseForecast
 	json.Unmarshal(responseData, &responseObject)
+	// log.Println(response)
+	// log.Println(responseData)
+	log.Println(responseObject)
 }
