@@ -2,6 +2,7 @@ package weatherapi
 
 import (
 	"encoding/json"
+	"gokazetenn/articles/weather/model"
 	"io"
 	"log"
 	"net/http"
@@ -163,10 +164,10 @@ type Alert struct {
 	Instruction string `json:"instruction"`
 }
 
-func GetWeather() ResponseForecast {
+func getWeather(city string) ResponseForecast {
 	response, err := http.Get("http://api.weatherapi.com/v1/forecast.json?key=" +
 		os.Getenv("WEATHER_API_KEY") +
-		"&q=London" +
+		"&q=" + city +
 		"&days=1" +
 		"&aqi=no" +
 		"&alerts=no")
@@ -178,4 +179,15 @@ func GetWeather() ResponseForecast {
 	var responseObject ResponseForecast
 	json.Unmarshal(responseData, &responseObject)
 	return responseObject
+}
+
+func GetWeather(city string) model.Weather {
+	response := getWeather(city)
+	return model.Weather{
+		response.Location.Localtime,
+		response.Location.Name,
+		response.Forecast.Forcastday[0].Day.AvgtempC,
+		response.Forecast.Forcastday[0].Day.Condition.Icon,
+		response.Forecast.Forcastday[0].Day.Condition.Text,
+	}
 }

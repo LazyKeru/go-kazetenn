@@ -20,3 +20,4 @@
 <p>
     A simple GO newsletter, named go-kazetenn, which is set to be operated using cloud computing services such as AWS Lambda, Azure Function, Kubernetes jobs, and more. The term 'Kazetenn' originates from Brittany and translates to 'journal' in English. The goal of the project is to discover the language of go and it's modules.
 </p>
+
