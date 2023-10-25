@@ -3,6 +3,7 @@ package main
 import (
 	"gokazetenn/articles/quote"
 	"gokazetenn/articles/weather"
+	"gokazetenn/smtp"
 	"log"
 	"os"
 	"time"
@@ -23,10 +24,9 @@ func main() {
 	header := headerHTMLBuilder(os.Getenv("HEADER_LOGO"))
 	articles := []string{
 		quote.GetQuoteArticle(),
-		weather.GetWeatherArticle(),
+		weather.GetWeatherArticle(os.Getenv("WEATHER_API_LOCATION")),
 	}
-	log.Println(header, articles)
-	// smtp.SendNewsLetter(header, articles)
+	smtp.SendNewsLetter(header, articles)
 }
 
 func headerHTMLBuilder(imgsrc string) string {

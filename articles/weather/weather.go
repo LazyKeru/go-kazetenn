@@ -3,7 +3,6 @@ package weather
 import (
 	"fmt"
 	"gokazetenn/articles/weather/weatherapi"
-	"os"
 )
 
 type Weather struct {
@@ -14,8 +13,8 @@ type Weather struct {
 	Description string
 }
 
-func GetWeatherArticle() string {
-	weather := weatherapi.GetWeather(os.Getenv("WEATHER_API_LOCATION"))
+func GetWeatherArticle(city string) string {
+	weather := weatherapi.GetWeather(city)
 	article :=
 		"<div style='display: flex; flex-direction: row;'>" +
 			"<div style='flex: 1; display: flex; align-items: center;justify-content: center;'>" +
