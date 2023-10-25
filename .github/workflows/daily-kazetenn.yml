@@ -44,4 +44,3 @@ jobs:
           SMTP_SENDER: ${{vars.SMTP_SENDER}}
           SMTP_RECEIVER: ${{secrets.SMTP_RECEIVER}}
           HEADER_LOGO: ${{vars.HEADER_LOGO}}
-
