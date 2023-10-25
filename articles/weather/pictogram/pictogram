@@ -1,0 +1,25 @@
+func GenerateSVGWeatherPictogram(width int, height int, chanceOfRain int, chanceOfSnow int, cloud int, IsSunUp int, IsMoonUp) string {
+	res := "<svg xmlns='http://www.w3.org/2000/svg' width='" + width + "' height='" + height + "'>"
+	res += "</svg>"
+	return res
+}
+
+func addRain(chanceOfRain int) string {
+	return ""
+}
+
+func addSnow(chanceOfSnow int) string {
+	return ""
+}
+
+func addCloud(cloud int) string {
+	return ""
+}
+
+func addSun(isDay int) string {
+	return ""
+}
+
+func addMoon(isDay int) string {
+	return ""
+}
