@@ -1,30 +1,59 @@
-func GenerateSVGWeatherPictogram(width int, height int, chanceOfRain int, chanceOfSnow int, cloud int, IsSunUp int, IsMoonUp) string {
-	res := "<svg xmlns='http://www.w3.org/2000/svg' width='" + width + "' height='" + height + "'>"
+package pictogram
+
+import (
+	"strconv"
+)
+
+func GenerateSVGWeatherPictogram(width int, height int, chanceOfRain int, chanceOfSnow int, cloud int, IsSunUp int, IsMoonUp int) string {
+	res := "<svg xmlns='http://www.w3.org/2000/svg' width='" + strconv.Itoa(width) + "' height='" + strconv.Itoa(height) + "'>"
+	res += addRain(chanceOfRain) // Percentage
+	res += addSnow(chanceOfSnow) // Percentage
+	res += addCloud(cloud)       // Percentage
+	if IsSunUp == 1 && cloud < 50 {
+		res += addSun()
+	}
+	if IsMoonUp == 1 {
+		res += addMoon(IsMoonUp)
+	}
 	res += "</svg>"
 	return res
 }
 
 func addRain(chanceOfRain int) string {
+	switch {
+	case chanceOfRain > 75:
+		// add a lot of rain
+	case chanceOfRain > 50:
+		// add rain
+	case chanceOfRain > 0:
+		// add a little rain
+	}
 	// License: CC Attribution. Made by Shannon E. Thomas: https://dribbble.com/shannonethomas
 	return "<path class='stone_een' d='M14,24c0,1.657-1.343,3-3,3c-0.09,0-0.181-0.004-0.273-0.012c-1.758-0.155-2.935-1.903-2.678-3.648 c0.263-1.786,1.531-3.148,2.317-3.838c0.184-0.162,0.414-0.242,0.645-0.242c0.231,0,0.463,0.081,0.65,0.24 C12.544,20.252,14,21.823,14,24z M20.661,22.5c-0.374-0.319-0.926-0.322-1.295,0.002c-0.786,0.69-2.054,2.052-2.317,3.838 c-0.257,1.746,0.921,3.493,2.678,3.648C21.507,30.145,23,28.747,23,27C23,24.823,21.544,23.252,20.661,22.5z M24,10'/>"
 }
 
 func addSnow(chanceOfSnow int) string {
-	// License: CC Attribution. Made by  Carol Liao: https://dribbble.com/thecarolizer 
+	// License: CC Attribution. Made by  Carol Liao: https://dribbble.com/thecarolizer
 	return "<path d='M13.5,20h-0.793l0.561,0.561c0.462,0.462-0.256,1.158-0.707,0.707L12,20.707V21.5c0,0.645-1,0.645-1,0 v-0.793l-0.561,0.561c-0.451,0.451-1.169-0.245-0.707-0.707L10.293,20H9.5c-0.645,0-0.645-1,0-1h0.793l-0.561-0.561 c-0.456-0.456,0.251-1.163,0.707-0.707L11,18.293V17.5c0-0.645,1-0.645,1,0v0.793l0.561-0.561c0.456-0.456,1.163,0.251,0.707,0.707 L12.707,19H13.5C14.145,19,14.145,20,13.5,20z M19.5,24h-0.793l0.561-0.561c0.456-0.456-0.251-1.163-0.707-0.707L18,23.293V22.5 c0-0.645-1-0.645-1,0v0.793l-0.561-0.561c-0.456-0.456-1.163,0.251-0.707,0.707L16.293,24H15.5c-0.645,0-0.645,1,0,1h0.793 l-0.561,0.561c-0.462,0.462,0.256,1.158,0.707,0.707L17,25.707V26.5c0,0.645,1,0.645,1,0v-0.793l0.561,0.561 c0.451,0.451,1.169-0.245,0.707-0.707L18.707,25H19.5C20.145,25,20.145,24,19.5,24z M21.5,15h-0.793l0.561-0.561 c0.456-0.456-0.251-1.163-0.707-0.707L20,14.293V13.5c0-0.645-1-0.645-1,0v0.793l-0.561-0.561 c-0.456-0.456-1.163,0.251-0.707,0.707L18.293,15H17.5c-0.645,0-0.645,1,0,1h0.793l-0.561,0.561 c-0.462,0.462,0.256,1.158,0.707,0.707L19,16.707V17.5c0,0.645,1,0.645,1,0v-0.793l0.561,0.561 c0.451,0.451,1.169-0.245,0.707-0.707L20.707,16H21.5C22.145,16,22.145,15,21.5,15z'/>"
 }
 
 func addCloud(cloud int) string {
+	switch {
+	case cloud > 75:
+		// add 2 cloud
+	case cloud > 50:
+		// add 1 clouds
+	}
 	// Source: https://github.com/twbs/icons
 	return "<path d='M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383zm.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z'/>"
 }
 
-func addSun(IsSunUp int) string {
+func addSun() string {
 	// License: Apache. Made by Iconscout: https://github.com/Iconscout/unicons
 	return "<path d='M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z'/>"
 }
 
-func addMoon(IsMoonUp int) string {
+func addMoon() string {
 	// License: MIT. Made by teenyicons: https://github.com/teenyicons/teenyicons
 	return "<path d='M7.7066 0.00274765C7.50391 -0.0027381 7.31797 0.114737 7.23588 0.300147C7.15379 0.485558 7.19181 0.702186 7.33213 0.848565C8.36577 1.92686 9.00015 3.3888 9.00015 4.99996C9.00015 8.31366 6.31385 11 3.00015 11C2.5757 11 2.16207 10.956 1.76339 10.8725C1.56489 10.8309 1.36094 10.9133 1.2471 11.0812C1.13325 11.249 1.13207 11.469 1.2441 11.638C2.58602 13.663 4.88682 15 7.50012 15C11.6423 15 15.0001 11.6421 15.0001 7.49996C15.0001 3.42688 11.7534 0.112271 7.7066 0.00274765Z' fill='#000000'/>"
 }
