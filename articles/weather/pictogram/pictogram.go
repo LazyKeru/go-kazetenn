@@ -13,7 +13,7 @@ func GenerateSVGWeatherPictogram(width int, height int, chanceOfRain int, chance
 		res += addSun()
 	}
 	if IsMoonUp == 1 {
-		res += addMoon(IsMoonUp)
+		res += addMoon()
 	}
 	res += "</svg>"
 	return res
